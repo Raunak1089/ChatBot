@@ -49,7 +49,7 @@ if(localStorage['ChatBot_memory']==undefined){
           };
 localStorage.setItem('ChatBot_memory',JSON.stringify(memory));
 }else{
- memory = JSON.parse(memory)
+ memory = JSON.parse(localStorage['ChatBot_memory'])
 }
 
 function f(t_show = document.getElementById("text").value) {
