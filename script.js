@@ -42,7 +42,7 @@ function check_eval(x){
   catch(err){return false}
 }
 
-if(localStorage['ChatBot_memory']==undefined){}
+if(localStorage['ChatBot_memory']==undefined){
 let memory = {
             "": "",
           };
