@@ -42,9 +42,13 @@ function check_eval(x){
   catch(err){return false}
 }
 
+if(localStorage['ChatBot_memory']==undefined){}
 let memory = {
             "": "",
           };
+}else{
+let memory = JSON.parse(memory)
+}
 
 function f(t_show = document.getElementById("text").value) {
 
@@ -73,6 +77,8 @@ let u;
      statement = t.slice(14,t.length);
      elems=statement.split(' is '||' are ');
      memory[elems[0]]=elems[1];
+
+     localStorage.setItem('ChatBot_memory',JSON.stringify(memory));
      u='Got it. You can now ask me to "recall about '+elems[0]+'"';
    }
     
