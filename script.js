@@ -67,7 +67,7 @@ let u;
      h = nd.getHours();
      m = nd.getMinutes();
      if(h/12<1){meridian=' am'}else{meridian=' pm'}
-     H=h%12;
+     if(h==12){H=12}else{H=h%12}
      if(H<10){H='0'+H}
      if(m<10){m='0'+m}
      u = 'The time is '+H+':'+m+meridian;
