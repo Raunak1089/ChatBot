@@ -42,13 +42,14 @@ function check_eval(x){
   catch(err){return false}
 }
 
+let memory;
 if(localStorage['ChatBot_memory']==undefined){
-let memory = {
+ memory = {
             "": "",
           };
 localStorage.setItem('ChatBot_memory',JSON.stringify(memory));
 }else{
-let memory = JSON.parse(memory)
+ memory = JSON.parse(memory)
 }
 
 function f(t_show = document.getElementById("text").value) {
