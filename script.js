@@ -46,6 +46,7 @@ if(localStorage['ChatBot_memory']==undefined){
 let memory = {
             "": "",
           };
+localStorage.setItem('ChatBot_memory',JSON.stringify(memory));
 }else{
 let memory = JSON.parse(memory)
 }
