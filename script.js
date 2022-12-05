@@ -1,11 +1,24 @@
-            all = {
+  function any_of(l){
+         return l[Math.round((l.length-1)*Math.random())]
+  }
+  
+
+function capitalize(str) {
+   var splitStr = str.toLowerCase().split(' ');
+   for (var i = 0; i < splitStr.length; i++) {
+       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+   }
+   return splitStr.join(' '); 
+}
+
+
+all = {
                 "hello" : "Hi! ",
                 "hello alexa" : "Hi! there",
                 "alexa" : "Hi! ",
                 "hi there" : "Hi! ",
                 "what's up" : "Excellent! And you?",
                 "hi" : "Hello! ",
-                "how are you" : "Good! Thanks for asking! What about you?",
                 "ok" : "Hm",
                 "fine" : "Hm",
                 "i'm fine" : "Hm", 
@@ -21,20 +34,21 @@
                 "are you mad" : "I'm sorry to hear you angry ",
                 "good morning" : "Good morning! Have a great day ahead!",
                 "good night" : "Good night, sweet dreams! I too am feeling sleepy",
+                "thank you" : "You're welcome!",
                 "ok bye" : "See you soon!", 
                 "bye" : "See you soon!", 
             };
 
 function hoverin(x) {
   x.style.boxShadow = "none";
-  x.style.color = "green";
-  x.style.background= "white";
+  x.style.color = "white";
+  x.style.background= "green";
 }
 
 function hoverout(x) {
   x.style.boxShadow = "2px 2px 2px black";
-  x.style.color = "white";
-  x.style.background = "lime";
+  x.style.color = "black";
+  x.style.background = "lightgreen";
 }
 
 function check_eval(x){
@@ -43,6 +57,7 @@ function check_eval(x){
 }
 
 let memory;
+
 if(localStorage['ChatBot_memory']==undefined){
  memory = {
             "": "",
@@ -67,7 +82,7 @@ let u;
      h = nd.getHours();
      m = nd.getMinutes();
      if(h/12<1){meridian=' am'}else{meridian=' pm'}
-     if(h==12){H=12}else{H=h%12}
+     H=h%12;
      if(H<10){H='0'+H}
      if(m<10){m='0'+m}
      u = 'The time is '+H+':'+m+meridian;
@@ -79,8 +94,6 @@ let u;
      statement = t.slice(14,t.length);
      elems=statement.split(' is '||' are ');
      memory[elems[0]]=elems[1];
-
-     localStorage.setItem('ChatBot_memory',JSON.stringify(memory));
      u='Got it. You can now ask me to "recall about '+elems[0]+'"';
    }
     
@@ -88,8 +101,18 @@ let u;
          u = 'It is '+memory[t.slice(13,t.length)] ;
     }
     
+    else if(t.slice(0,12)=='forget about' && t.slice(13,t.length) in memory) {
+      delete memory[t.slice(13,t.length)];
+         u = 'Got it. I forgot about '+t.slice(13,t.length) ;
+    }
+    
+    else if (t=="how are you"){
+      u=capitalize(any_of(good))+"! Thanks for asking! What about you?"
+    }
+    
    else if (t in all) {
          u = all[t] ;
+     if(u=='Hm'){u=capitalize(any_of(ok))}
     } else {
          u = "Sorry, I couldn't understand you ...";
     };
@@ -110,8 +133,8 @@ let u;
   document.getElementById("myList").appendChild(x3);
 
   document.getElementById("text").value = "";
-  document.getElementById("but1").disabled = true;  setTimeout(function(){document.getElementById("but1").disabled = false; }, 4500);
-  window.scrollTo(0, document.body.scrollHeight*2);   
+  document.getElementById("but1").disabled = true;  setTimeout(function(){document.getElementById("but1").disabled = false; }, 1500);
+  window.scrollTo(0, document.body.scrollHeight);   
     
 texttospeech(u);
 
